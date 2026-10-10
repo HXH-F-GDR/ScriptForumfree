@@ -4,6 +4,10 @@
    "Quindi", "Indiano"               -> niente tooltip
    Non tocca lo script originale: ne intercetta la funzione di sostituzione. */
 (function () {
+  /* Se la copia del bundle mobile e' gia' caricata, gira una sola copia */
+  if (window.__hxhKeywordFix) return;
+  window.__hxhKeywordFix = true;
+
   var IH = 'inner' + 'HTML';
   var SKIP = { A: 1, SCRIPT: 1, STYLE: 1, TEXTAREA: 1, CODE: 1, PRE: 1, BUTTON: 1, SELECT: 1 };
 
