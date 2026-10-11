@@ -33,7 +33,7 @@
    Dentro i valori usa l'apostrofo normale ' senza problemi; se ti serve
    una virgoletta doppia scrivila \"
    Dopo ogni modifica su GitHub, svuota la cache di jsDelivr aprendo:
-   https://purge.jsdelivr.net/gh/FadeToRed/ScriptForumfree@main/keyword-tooltips-lista.js
+   https://purge.jsdelivr.net/gh/HXH-F-GDR/ScriptForumfree@main/keyword-tooltips-lista.js
    ═══════════════════════════════════════════════════════════════ */
 
 window.HXH_KEYWORD_PACKS = {
