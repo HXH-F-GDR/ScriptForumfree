@@ -332,11 +332,37 @@
       parent.normalize();
     }
     /* e aggiunge comunque le parole della lista extra, direttamente sulla pagina */
+    applyExtrasToPage();
+  }
+
+  /* Applica le parole della lista extra ai post gia' presenti nella pagina
+     (le parole gia' trasformate in tooltip vengono saltate). */
+  function applyExtrasToPage() {
+    if (!getExtras().length) { return; }
     var posts = document.querySelectorAll('.color');
     for (var p = 0; p < posts.length; p++) {
       var data = discover(null, posts[p].textContent);
       if (data.list.length) { processRoot(posts[p], data); }
     }
+  }
+
+  /* Se la lista non e' gia' stata caricata con il suo tag script (es. sul
+     mobile, dove c'e' un solo file), la carichiamo da qui e la applichiamo
+     appena arriva. */
+  var LISTA_URL = 'https://cdn.jsdelivr.net/gh/FadeToRed/ScriptForumfree@main/keyword-tooltips-lista.js';
+  if (!window.HXH_KEYWORDS) {
+    var ls = document.createElement('script');
+    ls.src = LISTA_URL;
+    ls.async = true;
+    ls.onload = function () {
+      extraCache = null;
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', applyExtrasToPage);
+      } else {
+        applyExtrasToPage();
+      }
+    };
+    (document.head || document.documentElement).appendChild(ls);
   }
 
   if (typeof window.replace_keywordtooltips === 'function') {
