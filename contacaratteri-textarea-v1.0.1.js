@@ -92,8 +92,9 @@
 		ta.setAttribute('data-ccv', '1');
 
 		var box = document.createElement('div');
+		// aspetto e colori nel CSS del forum (classe ccv-counter), cosi'
+		// le skin Halloween e Natale possono cambiarli
 		box.className = 'ccv-counter';
-		box.style.cssText = 'display:block;margin:4px 0 0;padding:0;text-align:right;font-size:11px;font-weight:700;line-height:1.4;color:#0B486B;';
 		ta.parentNode.insertBefore(box, ta.nextSibling);
 
 		var timer = null;
