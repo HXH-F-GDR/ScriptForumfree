@@ -133,7 +133,7 @@
     sub.className = "mnt-sub";
     sub["innerHTML".toString()] =
       "Il forum \u00e8 temporaneamente offline per un grosso aggiornamento.<br>" +
-      "Tutto dovrebbe tornare operativo entro un paio di giorni. Grazie per la pazienza!";
+      "Tutto dovrebbe tornare operativo entro al massimo il 5/11/2026. Grazie per la pazienza!";
 
     head.appendChild(h1);
     head.appendChild(sub);
