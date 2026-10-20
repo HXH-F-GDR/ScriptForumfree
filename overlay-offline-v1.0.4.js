@@ -88,7 +88,7 @@
       "position:relative!important;}" +
       "#mnt-overlay{position:fixed;top:0;left:0;right:0;bottom:0;" +
       "width:100vw;height:100vh;min-height:100%;" +
-      "z-index: 9;background:#3b8686;color:#000000;" +
+      "z-index: 9;background:#ffffff;color:#000000;" +
       "font-family:'Montserrat',sans-serif;overflow:auto;" +
       "text-align:center;margin:0;padding:0;}" +
       "#mnt-overlay .mnt-box{position:absolute;top:0;left:0;right:0;bottom:0;" +
