@@ -423,35 +423,13 @@ function gdrUrl(z) {
  return 'https://hxhforumgdr.forumcommunity.net/?f=' + z.sectionId;
 }
 
-function gdrGetWeather(z) {
- try {
-  if (!z.weatherName || !z.climate || typeof getWeather !== 'function' || typeof getGameTime !== 'function') return null;
-  var gt = getGameTime();
-  var locH = applyOffset(gt.h, z.weatherOffset);
-  var weather = getWeather(gt.gameDate, z.weatherName, z.climate, locH);
-  if (!weather) return null;
-  /* Applica override Firebase se presenti (stessa logica del widget meteo) */
-  if (typeof getOverride === 'function') {
-   var ov = getOverride(String(z.sectionId));
-   if (ov) {
-    if (ov.icon)  { weather.icon = ov.icon; weather.label = ov.label; }
-    if (ov.temp) {
-     if (ov.temp.mode === 'abs')   weather.temp = ov.temp.val;
-     if (ov.temp.mode === 'plus')  weather.temp = weather.temp + ov.temp.val;
-     if (ov.temp.mode === 'minus') weather.temp = weather.temp - ov.temp.val;
-     weather.temp = Math.round(weather.temp);
-    }
+   function gdrGetWeather(z) {
+    if (!window.HxHMeteo) return null;
+    var m = window.HxHMeteo.meteo(z.sectionId);
+    if (!m) return null;
+    var testo = m.label + ' ' + (m.temp > 0 ? '+' : '') + m.temp + '\u00b0C ' + (m.notte ? '(notte)' : '(giorno)');
+    return testo;
    }
-  }
-  var season = getSeason(gt.gameDate.getMonth());
-  var night = isNight(locH, season);
-  if (weather.nightOverride !== undefined) night = weather.nightOverride;
-  var temp = (weather.temp > 0 ? '+' : '') + weather.temp + '\u00b0C';
-  return weather.label + ' ' + temp + ' ' + (night ? '(notte)' : '(giorno)');
- } catch(e) {
-  return null;
- }
-}
 
 function gdrCountTopics(sectionId) {
  var count = 0, page = 0, MAX = 50;
