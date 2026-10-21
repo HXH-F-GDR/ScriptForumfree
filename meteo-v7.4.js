@@ -1,6 +1,6 @@
 /* Meteo e tempo di gioco
    Hunter x Hunter Forum - GDR Remastered
-   Versione 7.3
+   Versione 7.4
 
    Lo stesso file serve desktop e mobile, con gli stessi luoghi (DATI qui sotto).
    Desktop: nel blocco HTML del forum, dopo questo script, HxHMeteo.avvia()
@@ -988,8 +988,6 @@ function icona(cls, notte) {
     var cactus = el('div', 'cactus');
     var svgCactus = elSvg('svg');
     svgCactus.setAttribute('viewBox', '0 0 40 48');
-    svgCactus.setAttribute('width', '40');
-    svgCactus.setAttribute('height', '48');
     svgCactus.setAttribute('fill', 'none');
     var forme = [
       'M16 44 L16 18 Q16 14 20 14 Q24 14 24 18 L24 44 Z',
@@ -1025,7 +1023,7 @@ var CSS = `#hxh-bar {--hxw-g1: #0e2a2a; --hxw-g2: #0B486B; --hxw-c1: #0e2a2a; --
 .hxw-ring-track {fill: none; stroke: var(--hxw-track); stroke-width: 2.5}
 .hxw-ring-fill {fill: none; stroke: var(--hxw-ring); stroke-width: 2.5; stroke-linecap: round}
 .hxw-orb-icon {width: 40px; height: 32px; display: flex; align-items: center; justify-content: center}
-.hxw-orb-icon .wx-icon {font-size: 3.4px}
+.hxw-orb-icon .wx-icon {font-size: 3.4px; --wx-scala: 0.8}
 .hxw-orb-temp {position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); padding: 1px 8px; border-radius: 8px; border: 1px solid var(--hxw-badge-border); background: var(--hxw-badge); font-size: 10.5px; font-weight: 600; line-height: 1.4; color: var(--hxw-badge-text); white-space: nowrap}
 .hxw-card {display: none; position: relative; width: 224px; border-radius: 10px; overflow: hidden; background: linear-gradient(160deg, var(--hxw-c1) 0%, var(--hxw-c2) 60%, var(--hxw-c3) 100%); border: 1px solid var(--hxw-border); box-shadow: 0 6px 24px rgba(0,0,0,0.55)}
 #hxh-bar.hxw-open .hxw-orb {display: none}
@@ -1039,7 +1037,7 @@ var CSS = `#hxh-bar {--hxw-g1: #0e2a2a; --hxw-g2: #0B486B; --hxw-c1: #0e2a2a; --
 .hxw-close:hover {color: var(--hxw-title)}
 .hxw-hero {display: flex; align-items: center; gap: 4px; padding: 14px 14px 12px 8px}
 .hxw-hero-icon {width: 86px; height: 66px; flex-shrink: 0; display: flex; align-items: center; justify-content: center}
-.hxw-hero-icon .wx-icon {font-size: 7.4px}
+.hxw-hero-icon .wx-icon {font-size: 7.4px; --wx-scala: 1.5}
 .hxw-temp {font-size: 30px; font-weight: 600; color: var(--hxw-text); line-height: 1; letter-spacing: -0.5px}
 .hxw-label {margin-top: 5px; font-size: 13px; font-style: italic; color: var(--hxw-title); line-height: 1.2}
 .hxw-grid {display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--hxw-line)}
@@ -1132,7 +1130,7 @@ var CSS = `#hxh-bar {--hxw-g1: #0e2a2a; --hxw-g2: #0B486B; --hxw-c1: #0e2a2a; --
 .harsh-wind:nth-child(4) {width: 1em; animation-delay: 0.9s; margin-left: 2.5em}
 .harsh-wind:nth-child(5) {width: 0.5em; animation-delay: 1.2s; margin-left: 2.85em}
 @keyframes harsh-wind {0% {transform: translateX(-0.5em)} 50% {transform: translateX(0.5em)} 100% {transform: translateX(-0.5em)}}
-.meteor-scene {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); width: 18px; height: 15px}
+.meteor-scene {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg) scale(var(--wx-scala, 1)); width: 18px; height: 15px}
 .meteor-scene > div {border-radius: 100px 0 0 100px; transform: translate(-50%, -50%); left: 50%; top: 50%; position: absolute}
 .meteor-scene > div ul {margin: 0; padding: 0}
 .meteor-scene > div ul li {list-style: none; display: block}
@@ -1176,8 +1174,9 @@ var CSS = `#hxh-bar {--hxw-g1: #0e2a2a; --hxw-g2: #0B486B; --hxw-c1: #0e2a2a; --
 .wave.two {background-color: #fff; animation-duration: 9s}
 .wave.three {background-color: #6cf; animation-duration: 12s}
 @keyframes waves {0% {transform: rotate(0deg)} 100% {transform: rotate(360deg)}}
-.wx-heatwave .heat-sun {position: absolute; top: 38%; left: 60%; width: 3.2em; height: 3.2em; margin: -1.6em -1.6em; background: #f93; border-radius: 50%; box-shadow: 0 0 0 0.375em #fff; animation: wx-hot-pulse 2.5s ease-in-out infinite; z-index: 0}
-.wx-heatwave .cactus {position: absolute; top: 50%; left: 25%; transform: translate(-50%, -44%); z-index: 1}
+.wx-heatwave .heat-sun {position: absolute; top: 40%; left: 62%; width: 3.6em; height: 3.6em; margin: -1.6em -1.6em; background: #f93; border-radius: 50%; box-shadow: 0 0 0 0.375em #fff; animation: wx-hot-pulse 2.5s ease-in-out infinite; z-index: 0}
+.wx-heatwave .cactus {position: absolute; top: 52%; left: 36%; transform: translate(-50%, -50%); z-index: 1}
+.wx-heatwave .cactus svg {display: block; width: 6.6em; height: 8em}
 .ice-aura {position: absolute; top: 50%; left: 50%; width: 7em; height: 7em; border-radius: 50%; background: radial-gradient(circle, rgba(130,190,240,0.55) 0%, rgba(130,190,240,0.25) 45%, rgba(130,190,240,0.05) 70%, transparent 100%); animation: ice-pulse 2.5s ease-in-out infinite; z-index: 0}
 .wx-blizzard .ice-crystal {font-size: 8em; color: #fff; text-shadow: none; z-index: 1}
 .wx-blizzard .ice-crystal::before, .wx-blizzard .ice-crystal::after {display: none}
