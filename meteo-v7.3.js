@@ -1,6 +1,6 @@
 /* Meteo e tempo di gioco
    Hunter x Hunter Forum - GDR Remastered
-   Versione 7.2
+   Versione 7.3
 
    Lo stesso file serve desktop e mobile, con gli stessi luoghi (DATI qui sotto).
    Desktop: nel blocco HTML del forum, dopo questo script, HxHMeteo.avvia()
@@ -22,7 +22,9 @@ var SVG = 'http://www.w3.org/2000/svg';
    Unico posto dove stanno gli ID delle sezioni.
    FORUM: quale forum è, in base al dominio; decide quali ID usare e quali dati leggere su Firebase
    TEMPO: tempo di partenza, vale solo finché lo staff non imposta data e velocità dal pannello
-   EMISFERO: "australe" o "boreale", vale solo finché lo staff non lo sceglie dal pannello
+   EMISFERO: "australe" o "boreale", vale solo finché lo staff non lo sceglie dal pannello;
+     i climi dei luoghi sono scritti per l'australe (freddo a sud, in basso nella mappa):
+     nel boreale subtropicale e subpolare si scambiano da soli
    LUOGHI: prova = ID della sezione sul forum di prova, gdr = ID della sezione sul forum vero;
      fuso e clima si ereditano dal luogo che contiene, se non indicati;
      predefinito = luogo mostrato fuori dalle zone di gioco;
@@ -258,6 +260,15 @@ var PICCHI = {
 
 /* CALCOLO DEL METEO */
 
+/* Fascia climatica nell'emisfero attuale: nel boreale il polo è a nord,
+   quindi subtropicale e subpolare si scambiano; la temperata resta uguale */
+function climaEffettivo(clima) {
+  if (stato.emisfero !== 'boreale') return clima;
+  if (clima === 'subtropical') return 'subpolar';
+  if (clima === 'subpolar') return 'subtropical';
+  return clima;
+}
+
 /* Nell'emisfero boreale le stagioni sono spostate di sei mesi */
 function stagione(mese) {
   if (stato.emisfero === 'boreale') mese = (mese + 6) % 12;
@@ -343,7 +354,7 @@ function calcolaMeteo(localeMs, nome, clima) {
   var d = new Date(localeMs);
   var ora = d.getUTCHours();
   var st = stagione(d.getUTCMonth());
-  var pool = (METEO[clima] || METEO.temperate)[st];
+  var pool = (METEO[climaEffettivo(clima)] || METEO.temperate)[st];
 
   var durata = (st === 'spring' || st === 'autumn') ? 2 : 3;
   var oreAssolute = Math.floor(localeMs / ORA);
@@ -597,7 +608,7 @@ function meteoNodo(nodo) {
 
   var etichetta = w.label;
   if (w.icon === 'wx-sunny' && notte) etichetta = 'Sereno';
-  if (w.icon === 'wx-tornado' && mostra.clima === 'subtropical') etichetta = 'Uragano';
+  if (w.icon === 'wx-tornado' && climaEffettivo(mostra.clima) === 'subtropical') etichetta = 'Uragano';
 
   var t = dataOra(nodo);
   var luce = LUCE[st];
