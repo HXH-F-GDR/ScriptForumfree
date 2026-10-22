@@ -1,6 +1,6 @@
 /* Meteo e tempo di gioco
    Hunter x Hunter Forum - GDR Remastered
-   Versione 7.4
+   Versione 7.5
 
    Lo stesso file serve desktop e mobile, con gli stessi luoghi (DATI qui sotto).
    Desktop: nel blocco HTML del forum, dopo questo script, HxHMeteo.avvia()
@@ -1109,6 +1109,21 @@ var CSS = `#hxh-bar {--hxw-g1: #0e2a2a; --hxw-g2: #0B486B; --hxw-c1: #0e2a2a; --
 .wx-hot-night-aura {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 6em; height: 6em; border-radius: 50%; background: radial-gradient(circle, transparent 35%, rgba(255,120,0,0.22) 60%, rgba(255,80,0,0.10) 80%, transparent 100%); animation: hot-night-pulse 3s ease-in-out infinite; z-index: 1; pointer-events: none}
 @keyframes hot-night-pulse {0%, 100% {transform: translate(-50%, -50%) scale(1); opacity: 0.7} 50% {transform: translate(-50%, -50%) scale(1.35); opacity: 1.0}}
 .wx-hot {color: #f93}
+.wx-icon.wx-partly:not(.wx-night) {transform: translateY(0.8em)}
+.wx-icon.wx-cloudy:not(.wx-night) {transform: translateY(0.4em)}
+.wx-icon.wx-rainy:not(.wx-night) {transform: translateY(-1.5em)}
+.wx-icon.wx-thunder:not(.wx-night) {transform: translateY(-1.5em)}
+.wx-icon.wx-snow:not(.wx-night) {transform: translateY(-2.15em)}
+.wx-icon.wx-foggy:not(.wx-night) {transform: translateY(-0.25em)}
+.wx-icon.wx-windy:not(.wx-night) {transform: translateY(0.2em)}
+.wx-icon.wx-hail:not(.wx-night) {transform: translateY(-2.1em)}
+.wx-icon.wx-freezing:not(.wx-night) {transform: translateY(0.4em)}
+.wx-icon.wx-sunny.wx-night {transform: translateY(0.25em)}
+.wx-icon.wx-partly.wx-night {transform: translateY(0.7em)}
+.wx-icon.wx-hot.wx-night {transform: translateY(0.55em)}
+.wx-icon.wx-tornado:not(.wx-night) {transform: translateY(0.8em)}
+.wx-icon.wx-tsunami:not(.wx-night) {transform: translateY(-0.75em)}
+.wx-icon.wx-heatwave:not(.wx-night) {transform: translateY(-0.35em)}
 .wx-hot .sun {background: #f93; box-shadow: 0 0 0 0.375em #fff; animation: wx-spin 12s linear infinite, wx-hot-pulse 2.5s ease-in-out infinite}
 @keyframes wx-spin {100% {transform: rotate(360deg)}}
 @keyframes wx-spin-center {from {transform: translate(-50%, -50%) rotate(0deg)} to {transform: translate(-50%, -50%) rotate(360deg)}}
