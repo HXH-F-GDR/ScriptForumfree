@@ -148,11 +148,15 @@
                 publishList(BIRTHDAYS);
             }
 
-            if (!BIRTHDAYS.length) return;
-
+            // Chi compie gli anni oggi non fa gli auguri a se stesso, ma vede comunque
+            // la card per gli altri festeggiati del giorno (se ce ne sono)
+            var others = [];
             for (var i = 0; i < BIRTHDAYS.length; i++) {
-                if (BIRTHDAYS[i].id == Commons.user.id) return;
+                if (BIRTHDAYS[i].id != Commons.user.id) others.push(BIRTHDAYS[i]);
             }
+            BIRTHDAYS = others;
+
+            if (!BIRTHDAYS.length) return;
 
             injectFA();
             injectStyles();
