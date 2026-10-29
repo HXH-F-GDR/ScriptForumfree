@@ -1,5 +1,5 @@
 /* ============================================================
-   Avvisi Shoutbox (desktop e mobile) - v1.0.3
+   Avvisi Shoutbox (desktop e mobile) - v1.0.4
    Legge gli avvisi dal nodo shoutAvvisi su Firebase (gestiti dalla
    pagina staff Pannello Avvisi) e ne mette uno in cima a Hello Box.
    - un solo avviso valido: resta sempre quello
@@ -18,6 +18,7 @@
   var DB_URL = 'https://spam-limitato-e-illimitato-default-rtdb.europe-west1.firebasedatabase.app/shoutAvvisi.json';
   var CACHE_KEY = 'hxh-shoutavvisi';
   var HEX = /^#[0-9A-Fa-f]{6}$/;
+  var AVATAR = 'https://upload.forumfree.net/i/ff13982804/bot-benvenuto.gif'; // se il campo avatar e' vuoto
 
   var el = null;
   var mostrato = null;
@@ -117,15 +118,13 @@
       return x;
     }
 
-    if (a.avatar) {
-      var la = collegamento();
-      var img = document.createElement('img');
-      img.className = 'hb-avatar';
-      img.alt = nome;
-      img.src = String(a.avatar);
-      la.appendChild(img);
-      m.appendChild(la);
-    }
+    var la = collegamento();
+    var img = document.createElement('img');
+    img.className = 'hb-avatar';
+    img.alt = nome;
+    img.src = String(a.avatar || '').trim() || AVATAR;
+    la.appendChild(img);
+    m.appendChild(la);
 
     var body = document.createElement('div');
     body.className = 'hb-body';
