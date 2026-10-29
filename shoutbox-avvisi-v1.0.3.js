@@ -1,5 +1,5 @@
 /* ============================================================
-   Avvisi Shoutbox (desktop e mobile) - v1.0.2
+   Avvisi Shoutbox (desktop e mobile) - v1.0.3
    Legge gli avvisi dal nodo shoutAvvisi su Firebase (gestiti dalla
    pagina staff Pannello Avvisi) e ne mette uno in cima a Hello Box.
    - un solo avviso valido: resta sempre quello
@@ -27,11 +27,11 @@
   // ---------- stile ----------
 
   var CSS = '' +
-    '.hb-message.sha-avviso {--sha: var(--sha-b); position: relative; border-left: 5px solid var(--sha) !important}' +
-    '.bodyhalloween .hb-message.sha-avviso {--sha: var(--sha-h)}' +
-    '.bodynatale .hb-message.sha-avviso {--sha: var(--sha-n)}' +
-    '.sha-avviso .hb-nickname, .sha-avviso .hb-nickname a {color: var(--sha) !important; font-weight: 700}' +
-    '.sha-avviso .sha-badge {display: inline-block; margin: 0 0 0 6px; padding: 0 6px; border: 1px solid var(--sha); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; line-height: 16px; color: var(--sha); vertical-align: middle; white-space: nowrap}' +
+    '.hb-message.sha-avviso {--sha: var(--sha-b); --shat: #CFF09E; --shab: linear-gradient(140deg, #3B8686, #0B486B); --shabo: #3B8686; --shan: #292354; position: relative; border-left: 4px solid var(--sha) !important}' +
+    '.bodyhalloween .hb-message.sha-avviso {--sha: var(--sha-h); --shat: #CF9269; --shab: linear-gradient(140deg, #43281A, #262A20); --shabo: #43281A; --shan: #43281A}' +
+    '.bodynatale .hb-message.sha-avviso {--sha: var(--sha-n); --shat: #94A49D; --shab: linear-gradient(140deg, #354F46, #25342F); --shabo: #354F46; --shan: #25342F}' +
+    '.sha-avviso .hb-nickname, .sha-avviso .hb-nickname a {color: var(--shan) !important; font-weight: 700}' +
+    '.sha-avviso .sha-badge {display: inline-block; margin: 0 0 0 6px; padding: 0 6px; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; line-height: 16px; color: var(--shat); vertical-align: middle; white-space: nowrap; background: var(--shab) !important; border-radius: 5px; -moz-border-radius: 5px; border: 2px solid var(--shabo); filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.3))}' +
     '.sha-avviso .hb-text-content a {color: var(--sha)}' +
     '.sha-avviso .hb-text-content img {max-width: 100%}' +
     'body.ffm .sha-avviso .sha-badge {margin: 2px 0 0 6px}';
