@@ -1,5 +1,7 @@
-/* Box inattivi v2.0.1 (desktop e mobile): sostituisce inattivi-v1.0.0.js (solo aggancio)
+/* Box inattivi v2.0.2 (desktop e mobile): sostituisce inattivi-v1.0.0.js (solo aggancio)
    v2.0.1: l'ID dell'utente si legge anche dal menu mobile (li.user_details a.nickname)
+   v2.0.2: l'aggancio si misura solo con la pagina in cima; se la pagina e' scorsa
+           si aspetta che torni in cima (prima un menu sticky dava margini enormi)
    Controlla su Firebase se l'utente loggato e' segnato come inattivo dal Pannello Inattivi:
    se si', aggiunge .inattivo al body (il CSS mostra #inattivi solo in quel caso)
    e aggancia il box 10px sotto il .menuwrap.
@@ -43,16 +45,25 @@
     try { localStorage.setItem(CACHE_KEY, JSON.stringify({ id: id, v: v, t: Date.now() })); } catch (e) {}
   }
 
-  // Aggancio del box sotto il menuwrap
+  // Aggancio del box sotto il menuwrap.
+  // Si misura solo con la pagina in cima: con la pagina scorsa un menu fisso o sticky
+  // non e' piu' dove sta di solito e la misura verrebbe sballata.
+  var inSospeso = false;
+
+  function scorrimento() {
+    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+    return y;
+  }
+
   function aggancia() {
     var box = document.getElementById('inattivi');
     var menu = document.querySelector('.menuwrap');
     if (!box || !menu || box.offsetHeight === 0) return;
+    if (scorrimento() > 1) { inSospeso = true; return; }
+    inSospeso = false;
     box.style.marginTop = '0px';
-    var scorrimento = window.pageYOffset || document.documentElement.scrollTop || 0;
-    var fisso = window.getComputedStyle(menu).position === 'fixed';
-    var fondoMenu = menu.getBoundingClientRect().bottom + (fisso ? 0 : scorrimento);
-    var cimaBox = box.getBoundingClientRect().top + scorrimento;
+    var fondoMenu = menu.getBoundingClientRect().bottom;
+    var cimaBox = box.getBoundingClientRect().top;
     var spazio = Math.round(fondoMenu + DISTANZA - cimaBox);
     box.style.marginTop = (spazio > 0 ? spazio : 0) + 'px';
   }
@@ -96,4 +107,9 @@
   });
   window.addEventListener('load', aggancia);
   window.addEventListener('resize', aggancia);
+  window.addEventListener('scroll', function () {
+    if (inSospeso) {
+      if (scorrimento() <= 1) aggancia();
+    }
+  }, { passive: true });
 })();
