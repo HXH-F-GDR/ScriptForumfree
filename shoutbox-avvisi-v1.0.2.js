@@ -1,5 +1,5 @@
 /* ============================================================
-   Avvisi Shoutbox (desktop e mobile) - v1.0.1
+   Avvisi Shoutbox (desktop e mobile) - v1.0.2
    Legge gli avvisi dal nodo shoutAvvisi su Firebase (gestiti dalla
    pagina staff Pannello Avvisi) e ne mette uno in cima a Hello Box.
    - un solo avviso valido: resta sempre quello
@@ -27,11 +27,11 @@
   // ---------- stile ----------
 
   var CSS = '' +
-    '.hb-message.sha-avviso {--sha: var(--sha-b); position: relative; border-left: 3px solid var(--sha) !important; background: color-mix(in srgb, var(--sha) 12%, transparent) !important}' +
+    '.hb-message.sha-avviso {--sha: var(--sha-b); position: relative; border-left: 5px solid var(--sha) !important}' +
     '.bodyhalloween .hb-message.sha-avviso {--sha: var(--sha-h)}' +
     '.bodynatale .hb-message.sha-avviso {--sha: var(--sha-n)}' +
     '.sha-avviso .hb-nickname, .sha-avviso .hb-nickname a {color: var(--sha) !important; font-weight: 700}' +
-    '.sha-avviso .sha-badge {display: inline-block; margin: 0 0 0 6px; padding: 0 6px; border: 1px dashed var(--sha); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; line-height: 16px; color: var(--sha); vertical-align: middle; white-space: nowrap}' +
+    '.sha-avviso .sha-badge {display: inline-block; margin: 0 0 0 6px; padding: 0 6px; border: 1px solid var(--sha); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; line-height: 16px; color: var(--sha); vertical-align: middle; white-space: nowrap}' +
     '.sha-avviso .hb-text-content a {color: var(--sha)}' +
     '.sha-avviso .hb-text-content img {max-width: 100%}' +
     'body.ffm .sha-avviso .sha-badge {margin: 2px 0 0 6px}';
