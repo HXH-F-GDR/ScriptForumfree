@@ -1,5 +1,5 @@
 /* ============================================================
-   Avvisi Shoutbox (desktop e mobile) - v1.0.0
+   Avvisi Shoutbox (desktop e mobile) - v1.0.1
    Legge gli avvisi dal nodo shoutAvvisi su Firebase (gestiti dalla
    pagina staff Pannello Avvisi) e ne mette uno in cima a Hello Box.
    - un solo avviso valido: resta sempre quello
@@ -155,8 +155,19 @@
 
   // ---------- posizione in Hello Box ----------
 
+  // Hello Box usa le stesse classi per shoutbox e newsboard:
+  // si prende il primo hello-box che non sta dentro .provanewsboard
+  function shoutbox() {
+    var tutti = document.querySelectorAll('hello-box');
+    for (var i = 0; i < tutti.length; i++) {
+      if (!tutti[i].closest || !tutti[i].closest('.provanewsboard')) return tutti[i];
+    }
+    return null;
+  }
+
   function contenitore() {
-    var c = document.querySelector('hello-box .hb-messages');
+    var hb = shoutbox();
+    var c = hb ? hb.querySelector('.hb-messages') : null;
     return c;
   }
 
@@ -169,7 +180,7 @@
 
   function sorveglia() {
     if (osservatore) return;
-    var hb = document.querySelector('hello-box');
+    var hb = shoutbox();
     if (!hb || !window.MutationObserver) return;
     osservatore = new MutationObserver(function () {
       if (!el) return;
