@@ -1,4 +1,5 @@
-/* Box inattivi v2.0.0 (desktop): sostituisce inattivi-v1.0.0.js (solo aggancio)
+/* Box inattivi v2.0.1 (desktop e mobile): sostituisce inattivi-v1.0.0.js (solo aggancio)
+   v2.0.1: l'ID dell'utente si legge anche dal menu mobile (li.user_details a.nickname)
    Controlla su Firebase se l'utente loggato e' segnato come inattivo dal Pannello Inattivi:
    se si', aggiunge .inattivo al body (il CSS mostra #inattivi solo in quel caso)
    e aggancia il box 10px sotto il .menuwrap.
@@ -20,7 +21,9 @@
   }
 
   function mioId() {
-    var a = document.querySelector('.menuwrap a[class^="user"][href*="MID="]');
+    // Desktop: link al profilo nel .menuwrap; mobile: nickname nel menu utente
+    var a = document.querySelector('.menuwrap a[class^="user"][href*="MID="]') ||
+            document.querySelector('li.user_details a.nickname[href*="MID="]');
     if (!a) return null;
     var m = /MID=(\d+)/.exec(a.getAttribute('href') || '');
     var id = m ? m[1] : null;
