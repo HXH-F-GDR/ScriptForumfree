@@ -5,10 +5,14 @@
   // (pagina staff). Stesso file per desktop (tag nel blocco HTML del forum)
   // e mobile (caricato dal bundle script-mobile).
   //
-  // Nodo Firebase: forumConfig = {
+  // Ogni forum ha il suo nodo, scelto in base al dominio:
+  //   hxhforumgdr.forumcommunity.net -> forumConfig/gdr
+  //   qualsiasi altro dominio          -> forumConfig/prova
+  // forumConfig/<forum> = {
   //   skin:         { halloween: true/false, natale: true/false },
   //   manutenzione: { mode: 0/1/2, titolo: "...", messaggio: "...", frasi: [ "...", ... ] }
   // }
+  // Se il nodo non esiste ancora: skin spente e overlay spento.
   //   mode 0 = overlay spento
   //   mode 1 = entra solo lo staff (admin, g1-g4)
   //   mode 2 = entrano solo gli amministratori (admin, g1)
@@ -22,7 +26,15 @@
   window.__hxhForumConfig = true;
 
   var DB_URL = 'https://spam-limitato-e-illimitato-default-rtdb.europe-west1.firebasedatabase.app/forumConfig.json';
-  var CACHE_KEY = 'hxh-forumconfig';
+
+  // Dominio -> nodo. I domini non in lista usano il nodo del forum di prova.
+  var NODI = {
+    'hxhforumgdr.forumcommunity.net': 'gdr'
+  };
+  var NODO = NODI[location.hostname] || 'prova';
+  var CACHE_KEY = 'hxh-forumconfig-' + NODO;
+
+  try { localStorage.removeItem('hxh-forumconfig'); } catch (e) {} // cache della 1.0
   var IMG_URL = 'https://upload.forumfree.net/i/ff13982804/Hunter/loading.svg';
 
   // ---------- utilita' ----------
@@ -407,7 +419,11 @@
       return r.json();
     })
     .then(function (dati) {
-      var cfg = normalizza(dati);
+      var mio = (dati && dati[NODO]) || null;
+      // Passaggio dalla 1.0: finche' il pannello non sposta i dati nel nodo
+      // "prova", il forum di prova continua a leggere la vecchia configurazione
+      if (!mio && NODO === 'prova' && dati && dati.manutenzione) mio = dati;
+      var cfg = normalizza(mio);
       salvaCache(cfg);
       applica(cfg);
     })
