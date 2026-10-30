@@ -1,6 +1,6 @@
 /* Meteo e tempo di gioco
    Hunter x Hunter Forum - GDR Remastered
-   Versione 7.6
+   Versione 7.7
 
    Lo stesso file serve desktop e mobile, con gli stessi luoghi (DATI qui sotto).
    Desktop: nel blocco HTML del forum, dopo questo script, HxHMeteo.avvia()
@@ -700,6 +700,20 @@ function costruisci() {
   var mobile = !!stato.config.mobile;
   bar.className = mobile ? 'hxw-mobile' : '';
 
+  /* Desktop: si apre passandoci sopra e si richiude quando il mouse esce dal widget
+     (dopo una breve attesa, così non si chiude se il mouse esce per un attimo),
+     con una dissolvenza della scheda e il ritorno del cerchio */
+  var timer = null;
+  function apri() {
+    clearTimeout(timer);
+    bar.className = 'hxw-open';
+  }
+  function chiudi() {
+    clearTimeout(timer);
+    bar.className = 'hxw-open hxw-closing';
+    timer = setTimeout(function() { bar.className = 'hxw-back'; }, 200);
+  }
+
   /* Chiuso: cerchio con l'anello della giornata e la temperatura */
   if (!mobile) {
     var orb = el('div', 'hxw-orb');
@@ -720,19 +734,15 @@ function costruisci() {
     orb.appendChild(anello);
     orb.appendChild(el('div', 'hxw-orb-icon'));
     orb.appendChild(el('span', 'hxw-orb-temp'));
-    /* Si apre passandoci sopra e si richiude quando il mouse esce dal widget;
-       la breve attesa evita che si chiuda se il mouse esce per un attimo */
-    var timerChiusura = null;
-    function apri() {
-      clearTimeout(timerChiusura);
-      bar.className = 'hxw-open';
-    }
     orb.onmouseenter = apri;
     orb.onclick = apri;
-    bar.onmouseenter = function() { clearTimeout(timerChiusura); };
+    bar.onmouseenter = function() {
+      if (bar.className === 'hxw-open') clearTimeout(timer);
+    };
     bar.onmouseleave = function() {
-      clearTimeout(timerChiusura);
-      timerChiusura = setTimeout(function() { bar.className = ''; }, 300);
+      if (bar.className !== 'hxw-open') return;
+      clearTimeout(timer);
+      timer = setTimeout(chiudi, 300);
     };
     bar.appendChild(orb);
   }
@@ -744,10 +754,10 @@ function costruisci() {
   testa.appendChild(iconaFa('fa-solid fa-location-dot'));
   testa.appendChild(el('span', 'hxw-name'));
   if (!mobile) {
-    var chiudi = el('button', 'hxw-close');
-    chiudi.appendChild(iconaFa('fa-solid fa-xmark'));
-    chiudi.onclick = function(e) { e.stopPropagation(); bar.className = ''; };
-    testa.appendChild(chiudi);
+    var chiudiBtn = el('button', 'hxw-close');
+    chiudiBtn.appendChild(iconaFa('fa-solid fa-xmark'));
+    chiudiBtn.onclick = function(e) { e.stopPropagation(); chiudi(); };
+    testa.appendChild(chiudiBtn);
   }
   card.appendChild(testa);
 
@@ -1042,6 +1052,10 @@ var CSS = `#hxh-bar {--hxw-g1: #0e2a2a; --hxw-g2: #0B486B; --hxw-c1: #0e2a2a; --
 #hxh-bar.hxw-open .hxw-card {display: block; animation: hxw-in 0.3s ease forwards}
 #hxh-bar.hxw-mobile .hxw-card {display: block; width: auto}
 @keyframes hxw-in {from {opacity: 0; transform: translateY(-4px)} to {opacity: 1; transform: translateY(0)}}
+#hxh-bar.hxw-closing .hxw-card {animation: hxw-out 0.2s ease forwards; pointer-events: none}
+@keyframes hxw-out {from {opacity: 1; transform: translateY(0) scale(1)} to {opacity: 0; transform: translateY(-4px) scale(0.97)}}
+#hxh-bar.hxw-back .hxw-orb {animation: hxw-orb-in 0.25s ease, hxw-pulse 2.5s ease-in-out infinite}
+@keyframes hxw-orb-in {from {opacity: 0; transform: scale(0.85)} to {opacity: 1; transform: scale(1)}}
 .hxw-head {display: flex; align-items: center; gap: 7px; padding: 10px 14px; background: var(--hxw-head); border-bottom: 1px solid var(--hxw-line)}
 .hxw-head i {font-size: 10px; color: var(--hxw-accent)}
 .hxw-name {flex: 1; font-size: 9px; letter-spacing: 2.2px; text-transform: uppercase; color: var(--hxw-title); line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis}
