@@ -41,79 +41,79 @@ var DATI = {
   TEMPO: { giocoUTC: "2017-01-01T01:00:00Z", realeUTC: "2026-04-09T17:52:00Z", giorniRealiPerGiorno: 2 },
 
   LUOGHI: [
-    { prova: "65073567", gdr: "", nome: "Narevka", fuso: -1, clima: "subtropical", figli: [
-        { prova: "65114239", gdr: "", nome: "Repubblica di Padokia", figli: [
-            { prova: "65114240", gdr: "", nome: "Monte Kukuru" }
+    { prova: "65073567", gdr: "9165335", nome: "Narevka", fuso: -1, clima: "subtropical", figli: [
+        { prova: "65114239", gdr: "9165336", nome: "Repubblica di Padokia", figli: [
+            { prova: "65114240", gdr: "9165337", nome: "Monte Kukuru" }
         ]},
-        { prova: "65114241", gdr: "", nome: "Zerkaid", figli: [
-            { prova: "65114244", gdr: "", nome: "Parasta" },
-            { prova: "65114245", gdr: "", nome: "Swardani", predefinito: true, figli: [
-                { prova: "65114246", gdr: "", nome: "Associazione degli Hunter", comePadre: true },
-                { prova: "65114236", gdr: "", nome: "Torre Celeste", comePadre: true }
+        { prova: "65114241", gdr: "9165338", nome: "Zerkaid", figli: [
+            { prova: "65114244", gdr: "9165339", nome: "Parasta" },
+            { prova: "65114245", gdr: "9165340", nome: "Swardani", predefinito: true, figli: [
+                { prova: "65114246", gdr: "9140324", nome: "Associazione degli Hunter", comePadre: true },
+                { prova: "65114236", gdr: "9047228", nome: "Torre Celeste", comePadre: true }
             ]}
         ]},
-        { prova: "65114242", gdr: "", nome: "Repubblica di Mimbo" },
-        { prova: "65114243", gdr: "", nome: "Repubblica Kotoritana", fuso: 0 }
+        { prova: "65114242", gdr: "9165341", nome: "Repubblica di Mimbo" },
+        { prova: "65114243", gdr: "9165342", nome: "Repubblica Kotoritana", fuso: 0 }
     ]},
-    { prova: "65073568", gdr: "", nome: "Solmara", fuso: -2, clima: "temperate", figli: [
-        { prova: "65114247", gdr: "", nome: "Regno di Kukan'yu", figli: [
-            { prova: "65114251", gdr: "", nome: "Zapan", figli: [
-                { prova: "65114478", gdr: "", nome: "Villaggio di Trakey" }
+    { prova: "65073568", gdr: "9165343", nome: "Solmara", fuso: -2, clima: "temperate", figli: [
+        { prova: "65114247", gdr: "9165344", nome: "Regno di Kukan'yu", figli: [
+            { prova: "65114251", gdr: "9165347", nome: "Zapan", figli: [
+                { prova: "65114478", gdr: "9165348", nome: "Villaggio di Trakey" }
             ]},
-            { prova: "65114250", gdr: "", nome: "Dolle Harbor", figli: [
-                { prova: "65114477", gdr: "", nome: "Insediamento Melioras" }
+            { prova: "65114250", gdr: "9165345", nome: "Dolle Harbor", figli: [
+                { prova: "65114477", gdr: "9165346", nome: "Insediamento Melioras" }
             ]}
         ]},
-        { prova: "65114248", gdr: "", nome: "Repubblica di Lapet", clima: "subtropical" },
-        { prova: "65114249", gdr: "", nome: "Jappon", clima: "subtropical", figli: [
-            { prova: "65114479", gdr: "", nome: "Villaggio dei Fiori" },
-            { prova: "65114480", gdr: "", nome: "Villaggio delle Nuvole" }
+        { prova: "65114248", gdr: "9165349", nome: "Repubblica di Lapet", clima: "subtropical" },
+        { prova: "65114249", gdr: "9165350", nome: "Jappon", clima: "subtropical", figli: [
+            { prova: "65114479", gdr: "9165351", nome: "Villaggio dei Fiori" },
+            { prova: "65114480", gdr: "9165352", nome: "Villaggio delle Nuvole" }
         ]}
     ]},
-    { prova: "65073569", gdr: "", nome: "Yorbian", fuso: -2, clima: "temperate", figli: [
-        { prova: "65114252", gdr: "", nome: "Stati Uniti di Saherta", figli: [
-            { prova: "65114256", gdr: "", nome: "York Shin" }
+    { prova: "65073569", gdr: "9165353", nome: "Yorbian", fuso: -2, clima: "temperate", figli: [
+        { prova: "65114252", gdr: "9165354", nome: "Stati Uniti di Saherta", figli: [
+            { prova: "65114256", gdr: "9165355", nome: "York Shin" }
         ]},
-        { prova: "65114254", gdr: "", nome: "Kravos", clima: "subpolar" },
-        { prova: "65114255", gdr: "", nome: "Elyndar", fuso: -1 },
-        { prova: "65114253", gdr: "", nome: "Isole di Balsa", fuso: -1, clima: "subpolar", figli: [
-            { prova: "65114263", gdr: "", nome: "Arcipelago di Luneth", figli: [
-                { prova: "65114257", gdr: "", nome: "Unione di Mitene", figli: [
-                    { prova: "65114258", gdr: "", nome: "NGL", figli: [
-                        { prova: "65114481", gdr: "", nome: "Monte Hiei" },
-                        { prova: "65114482", gdr: "", nome: "Monte Kurama" }
+        { prova: "65114254", gdr: "9165366", nome: "Kravos", clima: "subpolar" },
+        { prova: "65114255", gdr: "9165367", nome: "Elyndar", fuso: -1 },
+        { prova: "65114253", gdr: "9165356", nome: "Isole di Balsa", fuso: -1, clima: "subpolar", figli: [
+            { prova: "65114263", gdr: "9165365", nome: "Arcipelago di Luneth", figli: [
+                { prova: "65114257", gdr: "9165357", nome: "Unione di Mitene", figli: [
+                    { prova: "65114258", gdr: "9165358", nome: "NGL", figli: [
+                        { prova: "65114481", gdr: "9165360", nome: "Monte Hiei" },
+                        { prova: "65114482", gdr: "9165359", nome: "Monte Kurama" }
                     ]},
-                    { prova: "65114259", gdr: "", nome: "Repubblica di Rokario" },
-                    { prova: "65114260", gdr: "", nome: "Repubblica di Hass" },
-                    { prova: "65114261", gdr: "", nome: "Rep. Gorteau Occidentale" },
-                    { prova: "65114262", gdr: "", nome: "Rep. Gorteau Orientale" }
+                    { prova: "65114259", gdr: "9165361", nome: "Repubblica di Rokario" },
+                    { prova: "65114260", gdr: "9165362", nome: "Repubblica di Hass" },
+                    { prova: "65114261", gdr: "9165364", nome: "Rep. Gorteau Occidentale" },
+                    { prova: "65114262", gdr: "9165363", nome: "Rep. Gorteau Orientale" }
                 ]}
             ]}
         ]}
     ]},
-    { prova: "65114231", gdr: "", nome: "Azia", fuso: 2, clima: "temperate", figli: [
-        { prova: "65114265", gdr: "", nome: "Torvane", clima: "subtropical", figli: [
-            { prova: "65114483", gdr: "", nome: "Citt\u00e0 Eterna" }
+    { prova: "65114231", gdr: "9165368", nome: "Azia", fuso: 2, clima: "temperate", figli: [
+        { prova: "65114265", gdr: "9165371", nome: "Torvane", clima: "subtropical", figli: [
+            { prova: "65114483", gdr: "9165372", nome: "Citt\u00e0 Eterna" }
         ]},
-        { prova: "65114264", gdr: "", nome: "Impero di Kakin", figli: [
-            { prova: "65114484", gdr: "", nome: "Villaggio di Blackbird" }
+        { prova: "65114264", gdr: "9165369", nome: "Impero di Kakin", figli: [
+            { prova: "65114484", gdr: "9165370", nome: "Villaggio di Blackbird" }
         ]},
-        { prova: "65114266", gdr: "", nome: "Mirelka" }
+        { prova: "65114266", gdr: "9165373", nome: "Mirelka" }
     ]},
-    { prova: "65114232", gdr: "", nome: "Kethra", fuso: 2, clima: "temperate", figli: [
-        { prova: "65114267", gdr: "", nome: "Federazione di Ochima", figli: [
-            { prova: "65114269", gdr: "", nome: "Isola Balena" }
+    { prova: "65114232", gdr: "9165374", nome: "Kethra", fuso: 2, clima: "temperate", figli: [
+        { prova: "65114267", gdr: "9165375", nome: "Federazione di Ochima", figli: [
+            { prova: "65114269", gdr: "9165376", nome: "Isola Balena" }
         ]},
-        { prova: "65114268", gdr: "", nome: "Egypersia", clima: "subpolar" }
+        { prova: "65114268", gdr: "9165377", nome: "Egypersia", clima: "subpolar" }
     ]},
-    { prova: "65114234", gdr: "", nome: "Citt\u00e0 delle Stelle Cadenti", fuso: 1, clima: "subtropical", figli: [
-        { prova: "65114272", gdr: "", nome: "Meteor" }
+    { prova: "65114234", gdr: "9165381", nome: "Citt\u00e0 delle Stelle Cadenti", fuso: 1, clima: "subtropical", figli: [
+        { prova: "65114272", gdr: "9165382", nome: "Meteor" }
     ]},
-    { prova: "65114233", gdr: "", nome: "Vandros", fuso: 1, clima: "subpolar", figli: [
-        { prova: "65114270", gdr: "", nome: "Unione di Beger\u00f2ss\u00e8" },
-        { prova: "65114271", gdr: "", nome: "Greed Island 2", fuso: 0, clima: "temperate" }
+    { prova: "65114233", gdr: "9165378", nome: "Vandros", fuso: 1, clima: "subpolar", figli: [
+        { prova: "65114270", gdr: "9165379", nome: "Unione di Beger\u00f2ss\u00e8" },
+        { prova: "65114271", gdr: "9165380", nome: "Greed Island 2", fuso: 0, clima: "temperate" }
     ]},
-    { prova: "65114235", gdr: "", nome: "Greed Island", fuso: 0, clima: "temperate" }
+    { prova: "65114235", gdr: "9165383", nome: "Greed Island", fuso: 0, clima: "temperate" }
   ]
 };
 
