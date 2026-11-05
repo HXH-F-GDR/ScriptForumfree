@@ -6,8 +6,11 @@
   // e mobile (caricato dal bundle script-mobile).
   //
   // Ogni forum ha il suo nodo, scelto in base al dominio:
-  //   hxhforumgdr.forumcommunity.net -> forumConfig/gdr
-  //   qualsiasi altro dominio          -> forumConfig/prova
+  //   hxhforumgdr.forumcommunity.net          -> forumConfig/gdr
+  //   graficaxskinxelaborazione.forumfree.it  -> forumConfig/prova
+  //   altre pagine su *.forumcommunity.net    -> forumConfig/gdr
+  //     (es. pagine dei messaggi privati: il GDR e' l'unico forum su forumcommunity)
+  //   qualsiasi altro dominio                 -> forumConfig/prova
   // forumConfig/<forum> = {
   //   skin:         { halloween: true/false, natale: true/false },
   //   manutenzione: { mode: 0/1/2, titolo: "...", messaggio: "...", frasi: [ "...", ... ] }
@@ -17,8 +20,16 @@
   //   mode 1 = entra solo lo staff (admin, g1-g4)
   //   mode 2 = entrano solo gli amministratori (admin, g1)
   //
-  // L'ultima configurazione letta resta in localStorage: alla pagina
-  // successiva skin e overlay partono subito da li', senza aspettare Firebase.
+  // L'ultima configurazione letta resta in localStorage, ma serve solo:
+  //   - alle skin, che partono subito da li' senza aspettare Firebase;
+  //   - a nascondere la pagina in attesa di Firebase, se l'ultima volta
+  //     l'overlay era acceso.
+  // L'overlay si costruisce SOLO con la risposta fresca di Firebase: una cache
+  // vecchia non puo' piu' mostrarlo. Se Firebase non risponde (errore o
+  // 5 secondi di attesa), la pagina si mostra senza overlay.
+  //
+  // v1.2.0 - overlay solo da Firebase, mai dalla cache; attesa massima 5s;
+  //          pagine fuori dal dominio del GDR ma su forumcommunity -> nodo gdr.
   // Test: localStorage mntForceUser = "1" (vedi l'overlay) / mntForceStaff = "1" (non lo vedi)
   // ============================================================
 
@@ -27,11 +38,20 @@
 
   var DB_URL = 'https://spam-limitato-e-illimitato-default-rtdb.europe-west1.firebasedatabase.app/forumConfig.json';
 
-  // Dominio -> nodo. I domini non in lista usano il nodo del forum di prova.
+  // Dominio -> nodo
   var NODI = {
-    'hxhforumgdr.forumcommunity.net': 'gdr'
+    'hxhforumgdr.forumcommunity.net': 'gdr',
+    'graficaxskinxelaborazione.forumfree.it': 'prova'
   };
-  var NODO = NODI[location.hostname] || 'prova';
+  var ATTESA_MAX = 5000; // ms: oltre, la pagina si mostra senza overlay
+
+  function scegliNodo(host) {
+    if (NODI[host]) return NODI[host];
+    // Altre pagine su forumcommunity (messaggi privati e simili): sono del GDR
+    if (/(^|\.)forumcommunity\.net$/.test(host)) return 'gdr';
+    return 'prova';
+  }
+  var NODO = scegliNodo(location.hostname);
   var CACHE_KEY = 'hxh-forumconfig-' + NODO;
 
   try { localStorage.removeItem('hxh-forumconfig'); } catch (e) {} // cache della 1.0
@@ -205,7 +225,7 @@
     pre.id = 'mnt-pre';
     pre.appendChild(document.createTextNode('body{visibility:hidden!important;}'));
     (document.head || document.documentElement).appendChild(pre);
-    setTimeout(mostraPagina, 6000); // paracadute: se qualcosa va storto, il forum torna visibile
+    setTimeout(mostraPagina, ATTESA_MAX + 1000); // paracadute: se qualcosa va storto, il forum torna visibile
   }
 
   function mostraPagina() {
@@ -398,20 +418,26 @@
   // AVVIO
   // ============================================================
 
-  function applica(cfg) {
-    aggiornaSkin(cfg);
-    quandoBody(function () { aggiornaOverlay(cfg); });
-  }
-
   var cache = leggiCache();
 
+  // Dalla cache solo le skin; l'overlay aspetta Firebase.
+  // Se l'ultima volta l'overlay era acceso, la pagina resta nascosta
+  // finche' Firebase non risponde (al massimo ATTESA_MAX).
   if (cache) {
     if (cache.manutenzione.mode !== 0) preNascondi();
-    applica(cache);
+    aggiornaSkin(cache);
   } else {
-    // Prima visita: niente da validare ancora, si applica la skin salvata
     applicaSkin(leggiSkin() || 'def');
   }
+
+  var finito = false;
+
+  var timer = setTimeout(function () {
+    if (finito) return;
+    finito = true;
+    console.warn('[ForumConfig] Firebase non ha risposto in tempo: pagina mostrata senza overlay');
+    mostraPagina();
+  }, ATTESA_MAX);
 
   fetch(DB_URL, { cache: 'no-store' })
     .then(function (r) {
@@ -420,15 +446,21 @@
     })
     .then(function (dati) {
       var mio = (dati && dati[NODO]) || null;
-      // Passaggio dalla 1.0: finche' il pannello non sposta i dati nel nodo
-      // "prova", il forum di prova continua a leggere la vecchia configurazione
-      if (!mio && NODO === 'prova' && dati && dati.manutenzione) mio = dati;
       var cfg = normalizza(mio);
       salvaCache(cfg);
-      applica(cfg);
+      aggiornaSkin(cfg);
+      // Risposta arrivata dopo il limite: le skin si aggiornano, l'overlay no
+      // (l'utente sta gia' usando la pagina; se serve, comparira' alla prossima)
+      if (finito) return;
+      finito = true;
+      clearTimeout(timer);
+      quandoBody(function () { aggiornaOverlay(cfg); });
     })
     .catch(function (e) {
-      console.warn('[ForumConfig] lettura Firebase non riuscita, resta l\'ultima configurazione nota:', e);
+      console.warn('[ForumConfig] lettura Firebase non riuscita:', e);
+      if (finito) return;
+      finito = true;
+      clearTimeout(timer);
       mostraPagina();
     });
 })();
